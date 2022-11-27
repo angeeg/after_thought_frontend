@@ -32,11 +32,12 @@ let navigate = useNavigate()
       .then((resJson) => {
         props.addCategory(resJson);
         setName("");
+        props.getCategories()
       })
       .catch((err) => {
         console.log(err);
       });
-      navigate('categories')
+     
   };
 
   return (

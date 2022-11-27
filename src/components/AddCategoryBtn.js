@@ -5,7 +5,7 @@ function AddCategoryBtn(props) {
     let navigate = useNavigate()
     return (
         <div>
-            <button onClick={() => navigate('add-category')}>+</button>
+            <button onClick={props.handleClick}>+</button>
         </div>
     )
 }

@@ -121,9 +121,11 @@ export default function App() {
   // };
 
   const addCategory = (category) => {
-    const copyCategories = [...categories]
+    const copyCategories = [categories]
     copyCategories.push(category)
     setCategories(copyCategories)
+    navigate('categories')
+    console.log(categories)
   }
 
   const handleClick = () => {
@@ -141,7 +143,7 @@ export default function App() {
           {/* need to figure out how to change the path if user is logged in - when changing to route /categories user data isn't persisting */}
           <Route path='login' element={!isLoggedIn ? <LoginForm login={login}/> : <Categories categories={categories}/> }/>
 
-          <Route path='add-category' element={<CategoryForm addCategory={addCategory} currentUser={currentUser}/>} />
+          <Route path='add-category' element={<CategoryForm addCategory={addCategory} currentUser={currentUser} getCategories={getCategories}/>} />
 
           <Route path='categories' element={<Categories categories={categories}  handleClick={handleClick} addCategory={addCategory}/>}/>
         </Routes>
