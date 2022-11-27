@@ -1,7 +1,7 @@
 import '../App.css'
 import {Link} from 'react-router-dom'
 
-function NavBar() {
+function NavBar(props) {
     return (
         <nav>
             <Link to=''><h1>After Thought...</h1></Link>

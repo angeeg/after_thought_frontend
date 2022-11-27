@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import {Routes, Route, Navigate} from 'react-router-dom'
+import React, { useState } from "react";
+import {Routes, Route, useNavigate} from 'react-router-dom'
 // CSS
 import "./App.css";
 // COMPONENTS
@@ -9,19 +9,24 @@ import LoginForm from "./components/LoginForm";
 import LogoutBtn from "./components/LogoutBtn";
 import NavBar from "./components/NavBar";
 import Categories from "./components/Categories";
+import CategoryForm from "./components/CategoryForm";
 
 let baseURL = "http://localhost:8000/after-thought/v1";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      currentUser: '',
-      isLoggedIn: false,
-      categories: [],
-    };
-  }
-  getCategories = () => {
+export default function App() {
+  let navigate = useNavigate()
+  const [currentUser, setCurrentUser] = useState('')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [categories, setCategories] = useState([])
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     currentUser: '',
+  //     isLoggedIn: false,
+  //     categories: [],
+  //   };
+  // }
+  const getCategories = () => {
     fetch(baseURL + '/categories/', {
       credentials: 'include',
     })
@@ -34,16 +39,14 @@ class App extends Component {
       })
       .then((data) => {
         console.log(data.data);
-        this.setState({
-          currentUser: data.data[0].author.username,
-          categories: data.data,
-        });
-        console.log('state in categories:', this.state)
-      });
-      
-  };
+        setCurrentUser(data.data[0].author.username);
+        setCategories(data.data)
+        console.log('state in categories:', currentUser, categories
+      );
+      }
+      );}
 
-  register = async (e) => {
+  const register = async (e) => {
     e.preventDefault();
     console.log(e.target);
     const url = baseURL + "/users/register";
@@ -62,16 +65,16 @@ class App extends Component {
       console.log(response);
       if (response.status === 201) {
         console.log("new user registered");
-        this.getCategories();
+        getCategories();
         // after the user registers it will redirect them to login page
-        // navigate("login")
+        navigate("login")
       }
     } catch (err) {
       console.log("Error => ", err);
     }
   };
 
-  login = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
     const url = baseURL + "/users/login";
     const loginBody = {
@@ -88,14 +91,14 @@ class App extends Component {
         credentials: "include",
       });
       if (response.status === 200) {
-        this.getCategories()
-        this.setState({ isLoggedIn: true })
-        console.log('state in login:', this.state)
+        getCategories()
+        setIsLoggedIn(true)
+        console.log('state in login:', categories, currentUser, isLoggedIn)
         
         
         
         // once user logs in it will redirect them to the dogs page
-        // navigate('dogs')
+        navigate('categories')
       }
     } catch (err) {
       console.log("Error => ", err);
@@ -117,17 +120,30 @@ class App extends Component {
   //   }
   // };
 
-  render() {
-    console.log('state in render:', this.state)
+  const addCategory = (category) => {
+    const copyCategories = [...categories]
+    copyCategories.push(category)
+    setCategories(copyCategories)
+  }
+
+  const handleClick = () => {
+    navigate('add-category')
+    console.log("handleclick clicked");
+    console.log(currentUser)
+  };
+  
     return (
       <div>
         <NavBar/>
         <Routes>
           <Route path='' element={<Home/>}/>
-          <Route path='register' element={<RegisterForm register={this.register} />}/>
+          <Route path='register' element={<RegisterForm register={register} />}/>
           {/* need to figure out how to change the path if user is logged in - when changing to route /categories user data isn't persisting */}
-          <Route path='login' element={!this.state.isLoggedIn ? <LoginForm login={this.login}/> : <Categories categories={this.state.categories}/> }/>
-          <Route path='categories' element={<Categories categories={this.state.categories}/>}/>
+          <Route path='login' element={!isLoggedIn ? <LoginForm login={login}/> : <Categories categories={categories}/> }/>
+
+          <Route path='add-category' element={<CategoryForm addCategory={addCategory} currentUser={currentUser}/>} />
+
+          <Route path='categories' element={<Categories categories={categories}  handleClick={handleClick} addCategory={addCategory}/>}/>
         </Routes>
         
         
@@ -135,7 +151,5 @@ class App extends Component {
         
       </div>
     );
-  }
+  
 }
-
-export default App;
