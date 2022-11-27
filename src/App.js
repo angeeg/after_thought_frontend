@@ -21,26 +21,27 @@ class App extends Component {
       categories: [],
     };
   }
-  // getCategories = () => {
-  //   fetch(baseURL + '/categories/', {
-  //     credentials: 'include',
-  //   })
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         return res.json();
-  //       } else {
-  //         return [];
-  //       }
-  //     })
-  //     .then((data) => {
-  //       console.log(data.data);
-  //       this.setState({
-  //         categories: data.data,
-  //       });
-  //       console.log(this.state)
-  //     });
+  getCategories = () => {
+    fetch(baseURL + '/categories/', {
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          return [];
+        }
+      })
+      .then((data) => {
+        console.log(data.data);
+        this.setState({
+          currentUser: data.data[0].author.username,
+          categories: data.data,
+        });
+        console.log('state in categories:', this.state)
+      });
       
-  // };
+  };
 
   register = async (e) => {
     e.preventDefault();
@@ -87,7 +88,11 @@ class App extends Component {
         credentials: "include",
       });
       if (response.status === 200) {
-        this.setState({ isLoggedIn: true });
+        this.getCategories()
+        this.setState({ isLoggedIn: true })
+        console.log('state in login:', this.state)
+        
+        
         
         // once user logs in it will redirect them to the dogs page
         // navigate('dogs')
@@ -113,18 +118,16 @@ class App extends Component {
   // };
 
   render() {
-    let hide = {
-      display: 'none'
-    }
+    console.log('state in render:', this.state)
     return (
       <div>
         <NavBar/>
         <Routes>
           <Route path='' element={<Home/>}/>
           <Route path='register' element={<RegisterForm register={this.register} />}/>
-          <Route path='login' element={this.state.isLoggedIn === true ? <Categories/> :
-          <LoginForm login={this.login}/>}/>
-          <Route path='categories' element={<Categories/>}/>
+          {/* need to figure out how to change the path if user is logged in - when changing to route /categories user data isn't persisting */}
+          <Route path='login' element={!this.state.isLoggedIn ? <LoginForm login={this.login}/> : <Categories categories={this.state.categories}/> }/>
+          <Route path='categories' element={<Categories categories={this.state.categories}/>}/>
         </Routes>
         
         
