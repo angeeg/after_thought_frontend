@@ -1,10 +1,6 @@
-import React from 'react'
-
-function LogoutBtn() {
+function LogoutBtn(props) {
     return (
-        <div>
-            
-        </div>
+        <button onClick={props.logout}>Logout</button>
     )
 }
 
