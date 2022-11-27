@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {Routes, Route, useNavigate} from 'react-router-dom'
+import { Routes, Route, useNavigate } from "react-router-dom";
 // CSS
 import "./App.css";
 // COMPONENTS
-import Home from "./components/Home"
+import Home from "./components/Home";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import LogoutBtn from "./components/LogoutBtn";
@@ -14,10 +14,10 @@ import CategoryForm from "./components/CategoryForm";
 let baseURL = "http://localhost:8000/after-thought/v1";
 
 export default function App() {
-  let navigate = useNavigate()
-  const [currentUser, setCurrentUser] = useState('')
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [categories, setCategories] = useState([])
+  let navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [categories, setCategories] = useState([]);
   // constructor() {
   //   super();
   //   this.state = {
@@ -27,8 +27,8 @@ export default function App() {
   //   };
   // }
   const getCategories = () => {
-    fetch(baseURL + '/categories/', {
-      credentials: 'include',
+    fetch(baseURL + "/categories/", {
+      credentials: "include",
     })
       .then((res) => {
         if (res.status === 200) {
@@ -40,11 +40,11 @@ export default function App() {
       .then((data) => {
         console.log(data.data);
         setCurrentUser(data.data[0].author.username);
-        setCategories(data.data)
-        console.log('state in categories:', currentUser, categories
-      );
-      }
-      );}
+        setCategories(data.data);
+        console.log("state in categories:", currentUser, categories);
+      });
+    navigate("categories");
+  };
 
   const register = async (e) => {
     e.preventDefault();
@@ -65,9 +65,9 @@ export default function App() {
       console.log(response);
       if (response.status === 201) {
         console.log("new user registered");
-        getCategories();
+        // getCategories();
         // after the user registers it will redirect them to login page
-        navigate("login")
+        navigate("login");
       }
     } catch (err) {
       console.log("Error => ", err);
@@ -91,14 +91,12 @@ export default function App() {
         credentials: "include",
       });
       if (response.status === 200) {
-        getCategories()
-        setIsLoggedIn(true)
-        console.log('state in login:', categories, currentUser, isLoggedIn)
-        
-        
-        
+        getCategories();
+        setIsLoggedIn(true);
+        console.log("state in login:", categories, currentUser, isLoggedIn);
+
         // once user logs in it will redirect them to the dogs page
-        navigate('categories')
+        navigate("categories");
       }
     } catch (err) {
       console.log("Error => ", err);
@@ -121,37 +119,77 @@ export default function App() {
   // };
 
   const addCategory = (category) => {
-    const copyCategories = [categories]
-    copyCategories.push(category)
-    setCategories(copyCategories)
-    navigate('categories')
-    console.log(categories)
-  }
+    const copyCategories = [categories];
+    copyCategories.push(category);
+    setCategories(copyCategories);
+    navigate("categories");
+    console.log(categories);
+  };
 
   const handleClick = () => {
-    navigate('add-category')
+    navigate("add-category");
     console.log("handleclick clicked");
-    console.log(currentUser)
+    console.log(currentUser);
   };
-  
-    return (
-      <div>
-        <NavBar/>
-        <Routes>
-          <Route path='' element={<Home/>}/>
-          <Route path='register' element={<RegisterForm register={register} />}/>
-          {/* need to figure out how to change the path if user is logged in - when changing to route /categories user data isn't persisting */}
-          <Route path='login' element={!isLoggedIn ? <LoginForm login={login}/> : <Categories categories={categories}/> }/>
 
-          <Route path='add-category' element={<CategoryForm addCategory={addCategory} currentUser={currentUser} getCategories={getCategories}/>} />
+  const deleteCategory = (id) => {
+    fetch(baseURL + "/categories/" + id, {
+      method: "DELETE",
+      credentials: "include",
+    }).then((res) => {
+      const copyCategories = [categories];
+      const findIndex = categories.findIndex((category) => category._id === id);
+      copyCategories.splice(findIndex, 1);
+      setCategories(copyCategories);
+      getCategories()
+    });
+    
+   
+  };
 
-          <Route path='categories' element={<Categories categories={categories}  handleClick={handleClick} addCategory={addCategory}/>}/>
-        </Routes>
-        
-        
-        {/* <LogoutBtn logout={this.logout} /> */}
-        
-      </div>
-    );
-  
+  return (
+    <div>
+      <NavBar />
+      <Routes>
+        <Route path="" element={<Home />} />
+        <Route path="register" element={<RegisterForm register={register} />} />
+        {/* need to figure out how to change the path if user is logged in - when changing to route /categories user data isn't persisting */}
+        <Route
+          path="login"
+          element={
+            !isLoggedIn ? (
+              <LoginForm login={login} />
+            ) : (
+              <Categories categories={categories} />
+            )
+          }
+        />
+
+        <Route
+          path="add-category"
+          element={
+            <CategoryForm
+              addCategory={addCategory}
+              currentUser={currentUser}
+              getCategories={getCategories}
+            />
+          }
+        />
+
+        <Route
+          path="categories"
+          element={
+            <Categories
+              categories={categories}
+              handleClick={handleClick}
+              addCategory={addCategory}
+              deleteCategory={deleteCategory}
+            />
+          }
+        />
+      </Routes>
+
+      {/* <LogoutBtn logout={this.logout} /> */}
+    </div>
+  );
 }

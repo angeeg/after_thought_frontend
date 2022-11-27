@@ -1,7 +1,6 @@
 import CategoryForm from "./CategoryForm";
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import AddCategoryBtn from './AddCategoryBtn'
 
 function Categories(props) {
   // console.log(props.handleClick);
@@ -13,8 +12,13 @@ function Categories(props) {
     <div>
       <h1>Categories</h1>
       <button onClick={props.handleClick}>+</button>
-      {props.categories.map((category) => {
-        return <h2 key={category.id}>{category.name}</h2>;
+      {props.categories.map((category, index) => {
+        return (
+        <>
+        <h2 key={index}>{category.name}</h2>
+        <button onClick={() => props.deleteCategory(category.id)}> X</button>
+        </>
+        )
       })}
     </div>
   );
