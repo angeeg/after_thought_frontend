@@ -10,6 +10,8 @@ import LogoutBtn from "./components/LogoutBtn";
 import NavBar from "./components/NavBar";
 import Categories from "./components/Categories";
 import CategoryForm from "./components/CategoryForm";
+import EditCategory from './components/EditCategory'
+import Thoughts from './components/Thoughts'
 
 let baseURL = "http://localhost:8000/after-thought/v1";
 
@@ -18,14 +20,9 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [categories, setCategories] = useState([]);
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     currentUser: '',
-  //     isLoggedIn: false,
-  //     categories: [],
-  //   };
-  // }
+  // const [name, setName] = useState("")
+
+  
   const getCategories = () => {
     fetch(baseURL + "/categories/", {
       credentials: "include",
@@ -147,6 +144,30 @@ export default function App() {
    
   };
 
+  // const editCategory = (category) => {
+  //   // let id = categories.find(category => category.id === id)
+  //   // let name = categories.find(category => category.name === name)
+  //   fetch(baseURL + "/categories/" + category.id, {
+  //     method: "PUT",
+  //     body: JSON.stringify({name: category.name}),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     credentials: 'include'
+  //   }).then((res) => res.json())
+  //   .then((resJson) => {
+  //     console.log(category.name)
+  //     const updatedCategories = [categories]
+  //     const findIndex = categories.findIndex(
+  //       (category) => category.id === resJson.id
+  //     )
+  //     console.log(updatedCategories[0])
+  //     updatedCategories[findIndex].name = resJson.name
+  //     setCategories(updatedCategories)
+  //   })
+  //   console.log('edit button clicked')
+  // };
+
   return (
     <div>
       <NavBar />
@@ -176,6 +197,7 @@ export default function App() {
           }
         />
 
+        
         <Route
           path="categories"
           element={
@@ -183,10 +205,13 @@ export default function App() {
               categories={categories}
               handleClick={handleClick}
               addCategory={addCategory}
+              // editCategory={editCategory}
               deleteCategory={deleteCategory}
             />
           }
         />
+
+        <Route path='/thoughts/category/:id' element={<Thoughts/>}/>
       </Routes>
 
       {/* <LogoutBtn logout={this.logout} /> */}
