@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import {useParams} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
+import ThoughtForm from './ThoughtForm'
+
 let baseURL = "http://localhost:8000/after-thought/v1";
 
 
 
 function Thoughts()  {
+    const navigate = useNavigate()
     const [state, setState] = useState({
         category: '',
         thoughts: []
     })
-
+    const [body, setBody] = useState('')
+    const [thoughtForm, setThoughtForm] = useState(false)
     const {id} = useParams()
 
     const getThoughts = () => {
@@ -31,21 +35,61 @@ function Thoughts()  {
             })
         }
     })
-    
+    navigate(`/thoughts/category/${id}`)
   };
+
+  const handleAddThought = (thought) => {
+      const allThoughts = [state.thoughts]
+      allThoughts.push(thought)
+      setState({thoughts: allThoughts})
+  }
+
+  const handleChange = (event) => {
+      setBody({body: event.target.value})
+  }
+
+  const addThought = (event) => {
+    event.preventDefault()
+    fetch(baseURL + `/thoughts/category/${id}`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        if(res.ok){
+            return res.json()
+        } throw new Error(res)
+    }).then(resJson => {
+        console.log('addThought', resJson)
+        handleAddThought(resJson.data.body)
+        setBody("")
+    }).catch((err) => {console.log(err)})
+    setThoughtForm(false)
+    // setBody({body:''})
+    // navigate(`/thoughts/category/${id}`)
+    getThoughts()
+    console.log(state.thoughts)
+  }
+
+  const showAddForm = () => {
+      setThoughtForm(true)
+  }
 
   useEffect(() => {
       getThoughts()
-  })
+  }, [])
   
-  console.log(state.thoughts.data)
+//   console.log(state.thoughts.data)
     return <div>
         {/* <h3>{state.thoughts.data.category.name}</h3> */}
         <ul>
             {state.thoughts?.data?.map((thought) => {
-               return <li>{thought.body}</li>
+               return <li key={thought.id}>{thought.body}</li>
             })}
         </ul>
+        <button onClick={showAddForm}>+</button>
+        {thoughtForm === true ? <ThoughtForm handleChange={handleChange} addThought={addThought}/> : null}
     </div>;
   
 }
