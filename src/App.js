@@ -171,7 +171,7 @@ export default function App() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn}/>
       <Routes>
         <Route path="" element={<Home />} />
         <Route path="register" element={<RegisterForm register={register} />} />
