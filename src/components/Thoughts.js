@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate, useParams} from 'react-router-dom'
+import {useNavigate, useParams, Link} from 'react-router-dom'
 import ThoughtForm from './ThoughtForm'
 
 let baseURL = "http://localhost:8000/after-thought/v1";
@@ -12,6 +12,7 @@ function Thoughts()  {
         category: '',
         thoughts: []
     })
+    
     const [body, setBody] = useState('')
     const [thoughtForm, setThoughtForm] = useState(false)
     const {id} = useParams()
@@ -37,6 +38,8 @@ function Thoughts()  {
     })
     navigate(`/thoughts/category/${id}`)
   };
+
+
 
   const handleAddThought = (thought) => {
       const allThoughts = [state.thoughts]
@@ -76,6 +79,22 @@ function Thoughts()  {
       setThoughtForm(true)
   }
 
+//   const deleteThought = (id) => {
+//     fetch(baseURL + "/categories/" + id, {
+//       method: "DELETE",
+//       credentials: "include",
+//     }).then((res) => {
+//       const copyCategories = [categories];
+//       const findIndex = categories.findIndex((category) => category._id === id);
+//       copyCategories.splice(findIndex, 1);
+//       setCategories(copyCategories);
+//       getCategories()
+//     });
+    
+   
+//   };
+
+
   useEffect(() => {
       getThoughts()
   }, [])
@@ -85,7 +104,9 @@ function Thoughts()  {
         {/* <h3>{state.thoughts.data.category.name}</h3> */}
         <ul>
             {state.thoughts?.data?.map((thought) => {
-               return <li key={thought.id}>{thought.body}</li>
+               return <Link to={`/thoughts/${thought.id}`}>
+               <li key={thought.id}>{thought.body}</li>
+               </Link>
             })}
         </ul>
         <button onClick={showAddForm}>+</button>

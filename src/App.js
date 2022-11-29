@@ -12,6 +12,7 @@ import Categories from "./components/Categories";
 import CategoryForm from "./components/CategoryForm";
 import EditCategory from './components/EditCategory'
 import Thoughts from './components/Thoughts'
+import OneThought from './components/OneThought'
 
 let baseURL = "http://localhost:8000/after-thought/v1";
 
@@ -211,8 +212,11 @@ export default function App() {
           }
         />
 
-        <Route path='/thoughts/category/:id' element={<Thoughts/>}/>
+        <Route path='/thoughts/category/:id' element={<Thoughts/>}/>\
+
+        <Route path='/thoughts/:id' element={<OneThought/>}/>
       </Routes>
+
 
       {/* <LogoutBtn logout={this.logout} /> */}
     </div>
