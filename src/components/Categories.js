@@ -1,7 +1,9 @@
+import '../App.css'
 import CategoryForm from "./CategoryForm";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import EditCategory from "./EditCategory";
+import { List, ListItem, ListItemText } from '@mui/material'
 
 function Categories(props) {
   // console.log(props.handleClick);
@@ -43,13 +45,14 @@ function Categories(props) {
 
   console.log('name', name)
   return (
-    <div>
+    <div className='categories'>
       <h1>Categories</h1>
-      <button onClick={props.handleClick}>+</button>
+      <List>
       {props.categories.map((category) => {
         return (
           <div key={category.id}>
-            <Link to={`/thoughts/category/${category.id}`}>{category.name}</Link>
+            <ListItem className='cat-name'>
+            <Link to={`/thoughts/category/${category.id}`} >{category.name}</Link>
             {/* <button onClick={handleClick}>✏️</button>
             {showEl && (
               <form onSubmit={props.editCategory(category)}>
@@ -63,13 +66,17 @@ function Categories(props) {
                 <input type="submit" value="save" />
               </form>
             )} */}
-            <button onClick={() => props.deleteCategory(category.id)}>
+            
+            <button className='delete-btn' onClick={() => props.deleteCategory(category.id)}>
               {" "}
-              🗑️
+              X
             </button>
+            </ListItem>
           </div>
         );
       })}
+      </List>
+      <button onClick={props.handleClick} className='add-btn'>+</button>
     </div>
   );
 }

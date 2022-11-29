@@ -1,7 +1,9 @@
+import '../App.css'
 import React, { useState, useEffect } from "react";
 import {useNavigate, useParams, Link} from 'react-router-dom'
 import ThoughtForm from './ThoughtForm'
 import OneThought from './OneThought'
+import { List, ListItem, ListItemText, Divider } from '@mui/material'
 
 let baseURL = "http://localhost:8000/after-thought/v1";
 
@@ -103,19 +105,23 @@ function Thoughts(props)  {
       getThoughts()
   }, [])
   
-//   console.log(state.thoughts.data)
-    return <div>
+  console.log(state.thoughts.data)
+    return <div className='thoughts'>
         {/* <h3>{state.thoughts.data.category.name}</h3> */}
-        <ul>
+        {/* <h1>{state.thoughts.data[0].category.name}</h1> */}
+        <List>
             {state.thoughts?.data?.map((thought) => {
-               return (<div key={thought.id}><Link to={`/thoughts/${thought.id}`} onClick={showOneThought}>
-               <li>{thought.body}</li>
+               return (<div key={thought.id}>
+                   
+                   <Link to={`/thoughts/${thought.id}`} onClick={showOneThought}>
+               <ListItem className='thought-text'>{thought.body}</ListItem>
                </Link>
+               <Divider variant='middle'/>
                {oneThought === true ? <OneThought thoughts={state.thoughts} /> : null}
                </div>)
             })}
-        </ul>
-        <button onClick={showAddForm}>+</button>
+        </List>
+        <button className='add-btn' onClick={showAddForm}>+</button>
         {thoughtForm === true ? <ThoughtForm handleChange={handleChange} addThought={addThought}/> : null}
     </div>;
   

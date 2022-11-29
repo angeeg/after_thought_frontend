@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import logoImg from '../images/brainwinning.jpeg'
 function NavBar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -26,12 +26,13 @@ function NavBar(props) {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "rgb(239, 240, 222)",
+        backgroundColor: "white",
         fontFamily: `'Reenie Beanie', cursive`,
         height: "75px",
       }}
     >
       <Toolbar>
+        <a href=''><img className='logo-img' src={logoImg} alt='brain-taking-notes'/></a>
         <Typography
           noWrap
           component="a"
@@ -44,6 +45,8 @@ function NavBar(props) {
             letterSpacing: ".3rem",
             color: "inherit",
             textDecoration: "none",
+            marginLeft: '10px',
+            marginRight: '975px'
           }}
         >
           <Link to="">
@@ -61,9 +64,7 @@ function NavBar(props) {
           aria-haspopup="true"
           onClick={handleMenu}
           color="black"
-          sx={{
-            marginLeft: '1050px'
-        }}
+          
         >
           <MenuIcon fontSize='large' />
         </IconButton>
@@ -97,12 +98,12 @@ function NavBar(props) {
                 </Link>
               </MenuItem>
             ) }
-
+        {props.isLoggedIn === true &&
           <MenuItem onClick={handleClose}>
             <Link to="categories">
               <h2>Categories</h2>
             </Link>
-          </MenuItem>
+          </MenuItem>}
         </Menu>
       </Toolbar>
     </AppBar>

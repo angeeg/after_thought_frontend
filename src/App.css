@@ -2,7 +2,7 @@
   font-family: 'Reenie Beanie', cursive
 }
 body {
-  background-color: rgb(250, 250, 247);
+  background-color: white
 }
 
 nav {
@@ -11,7 +11,96 @@ nav {
   justify-content: space-evenly;
 }
 
+.logo-img {
+  height: 65px;
+  width: 80px;
+}
+
 a {
   text-decoration: none;
   color: black;
+}
+
+a:hover {
+  color: grey;
+}
+
+.welcome {
+  font-size: 60px;
+}
+
+.home-img {
+  width: 300px;
+  height: 250px
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.login-form, .add-cat-form {
+  margin: auto;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 0px 20px 20px 20px;
+  width: fit-content;
+}
+
+
+label {
+  font-size: 20px
+}
+
+input {
+  height: 20px;
+  width: 200px;
+}
+
+.categories, .thoughts {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  
+}
+
+.cat-name {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 40px;
+  border: solid 1px;
+  padding: 15px;
+  border-radius: 50%;
+  margin: 10px;
+  
+}
+
+.thought-text {
+  font-size: 32px;
+}
+
+.delete-btn {
+  background-color: white;
+  border: none;
+  font-size: 20px;
+}
+
+.add-btn {
+  font-size: 60px;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 100%;
 }

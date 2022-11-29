@@ -41,13 +41,14 @@ let navigate = useNavigate()
   };
 
   return (
-    <>
-      
+    <div className='add-cat-form'>
+      <h2>New Category</h2>
       <form onSubmit={createCategory}>
         <input id="name" name="name" type="text" onChange={handleChange} />
+        <br/>
         <input type="submit" value="create" />
       </form>
-    </>
+    </div>
   );
 }
 
