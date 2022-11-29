@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
-
+import {useParams, useNavigate} from 'react-router-dom'
 let baseURL = "http://localhost:8000/after-thought/v1";
 
-function OneThought() {
+function OneThought(props) {
     const [oneThought, setOneThought] = useState({
         thought: '',
         starred: false
     })
+    const [thoughts, setThoughts] = useState(props.thoughts)
+    const navigate = useNavigate()
     const {id} = useParams()
 
     const getOneThought = () => {
@@ -25,6 +26,26 @@ function OneThought() {
         })
     }
 
+    const goBack = () => {
+        navigate(-1)
+    }
+    
+    const deleteThought = () => {
+        fetch(baseURL + `/thoughts/${id}`, {
+          method: "DELETE",
+          credentials: "include",
+        }).then((res) => {
+          const allThoughts = [thoughts];
+          const findIndex = allThoughts.findIndex((thought) => thought.id === id);
+          allThoughts.splice(findIndex, 1);
+          console.log(allThoughts)
+          setThoughts({thoughts: allThoughts});
+        });
+        goBack()
+      };
+
+    
+
     useEffect(()=> {
         getOneThought()
     }, [])
@@ -32,6 +53,7 @@ function OneThought() {
     return (
         <div>
             <h2>{oneThought.thought}</h2>
+            <button onClick={deleteThought}>X</button>
         </div>
     )
 }

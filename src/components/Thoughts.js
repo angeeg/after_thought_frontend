@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate, useParams, Link} from 'react-router-dom'
 import ThoughtForm from './ThoughtForm'
+import OneThought from './OneThought'
 
 let baseURL = "http://localhost:8000/after-thought/v1";
 
 
 
-function Thoughts()  {
+function Thoughts(props)  {
     const navigate = useNavigate()
     const [state, setState] = useState({
         category: '',
@@ -15,6 +16,7 @@ function Thoughts()  {
     
     const [body, setBody] = useState('')
     const [thoughtForm, setThoughtForm] = useState(false)
+    const [oneThought, setOneThought] = useState(false)
     const {id} = useParams()
 
     const getThoughts = () => {
@@ -79,19 +81,21 @@ function Thoughts()  {
       setThoughtForm(true)
   }
 
-//   const deleteThought = (id) => {
-//     fetch(baseURL + "/categories/" + id, {
+  const showOneThought = () => {
+      setOneThought(true)
+  }
+
+//   const deleteThought = () => {
+//     fetch(baseURL + `/thoughts/${id}`, {
 //       method: "DELETE",
 //       credentials: "include",
 //     }).then((res) => {
-//       const copyCategories = [categories];
-//       const findIndex = categories.findIndex((category) => category._id === id);
-//       copyCategories.splice(findIndex, 1);
-//       setCategories(copyCategories);
-//       getCategories()
+//       const allThoughts = [state.thoughts];
+//       const findIndex = allThoughts.findIndex((thought) => thought._id === id);
+//       allThoughts.splice(findIndex, 1);
+//       console.log(allThoughts)
+//       setState({thoughts: allThoughts});
 //     });
-    
-   
 //   };
 
 
@@ -104,9 +108,11 @@ function Thoughts()  {
         {/* <h3>{state.thoughts.data.category.name}</h3> */}
         <ul>
             {state.thoughts?.data?.map((thought) => {
-               return <Link to={`/thoughts/${thought.id}`}>
-               <li key={thought.id}>{thought.body}</li>
+               return (<div key={thought.id}><Link to={`/thoughts/${thought.id}`} onClick={showOneThought}>
+               <li>{thought.body}</li>
                </Link>
+               {oneThought === true ? <OneThought thoughts={state.thoughts} /> : null}
+               </div>)
             })}
         </ul>
         <button onClick={showAddForm}>+</button>
