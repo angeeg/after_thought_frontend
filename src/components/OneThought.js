@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
+import {useParams, useNavigate, useLocation} from 'react-router-dom'
 let baseURL = "http://localhost:8000/after-thought/v1";
 
 function OneThought(props) {
@@ -8,7 +8,9 @@ function OneThought(props) {
         starred: false
     })
     const [thoughts, setThoughts] = useState(props.thoughts)
+    const [edit, setEdit] = useState(false)
     const navigate = useNavigate()
+    const location = useLocation()
     const {id} = useParams()
 
     const getOneThought = () => {
@@ -44,7 +46,31 @@ function OneThought(props) {
         goBack()
       };
 
-    
+    const handleChange = (event) => {
+        event.preventDefault()
+        setOneThought({[event.target.id]: event.target.value})
+    }
+
+    const editThought = (selectedThought) => {
+        // event.preventDefault()
+        fetch(baseURL + `/thoughts/${id}`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                body: oneThought.thought
+            })
+        }).then((res) => {
+            res.json()
+        }).then((res) => {
+            if(res.status === 200){
+                getOneThought()
+                console.log('update complete')
+            }
+        })
+    }
 
     useEffect(()=> {
         getOneThought()
@@ -53,6 +79,13 @@ function OneThought(props) {
     return (
         <div>
             <h2>{oneThought.thought}</h2>
+            <button onClick={goBack}>Go back</button>
+            <button onClick={()=> setEdit(true)}>Edit</button>
+            {edit === true ?
+            <form onSubmit={editThought}>
+            <textarea id='thought' value={oneThought.thought} onChange={handleChange}/> 
+            <input type='submit' value='save'/>  
+            </form> : null}
             <button onClick={deleteThought}>X</button>
         </div>
     )
