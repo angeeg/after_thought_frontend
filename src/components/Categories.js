@@ -7,7 +7,7 @@ import { List, ListItem, ListItemText } from '@mui/material'
 
 function Categories(props) {
   // console.log(props.handleClick);
-  let baseURL = "http://localhost:8000/after-thought/v1";
+  let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
   const [categories, setCategories] = useState(props.categories);
   const [name, setName] = useState(categories.name);
   const [showEl, setShowEl] = useState(false);

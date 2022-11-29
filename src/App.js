@@ -14,7 +14,7 @@ import EditCategory from './components/EditCategory'
 import Thoughts from './components/Thoughts'
 import OneThought from './components/OneThought'
 
-let baseURL = "http://localhost:8000/after-thought/v1";
+let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
 
 export default function App() {
   let navigate = useNavigate();

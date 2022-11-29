@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom'
 function OneCategory() {
     let [category, setCategory] = useState({})
     let {id} = useParams()
-    let baseURL = 'http://localhost:8000/after-thought/v1/categories/'
+    let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1/categories/`
 
     const getCategory = (id) => {
         fetch(baseURL + id, {

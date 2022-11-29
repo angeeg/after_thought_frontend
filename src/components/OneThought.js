@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useNavigate, useLocation} from 'react-router-dom'
-let baseURL = "http://localhost:8000/after-thought/v1";
+let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
 
 function OneThought(props) {
     const [oneThought, setOneThought] = useState({

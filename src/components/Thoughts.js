@@ -5,7 +5,7 @@ import ThoughtForm from './ThoughtForm'
 import OneThought from './OneThought'
 import { List, ListItem, ListItemText, Divider } from '@mui/material'
 
-let baseURL = "http://localhost:8000/after-thought/v1";
+let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
 
 
 
