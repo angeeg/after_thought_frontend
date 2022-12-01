@@ -46,6 +46,7 @@ function Home() {
       <Box sx={boxStyle}>
           <h1 className='home-words'><a href='register'>Register</a> or <a href='login'>login</a> to continue.</h1>
       </Box>
+      <h4>&copy;After Thought - GA Capstone 2022</h4>
     </div>
   );
 }

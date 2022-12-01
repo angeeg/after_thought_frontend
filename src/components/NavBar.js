@@ -50,7 +50,7 @@ function NavBar(props) {
           }}
         >
           <Link to="">
-            <h1>After Thought</h1>
+            <h1>AfterThought</h1>
           </Link>
         </Typography>
         {/* <IconButton>

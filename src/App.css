@@ -61,6 +61,7 @@ label {
 input {
   height: 20px;
   width: 200px;
+  font-size: 20px;
 }
 
 .categories, .thoughts {
@@ -69,8 +70,10 @@ input {
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  
+  width: 50%;
+  margin: auto
 }
+
 
 .cat-name {
   display: flex;
@@ -102,4 +105,26 @@ input {
   height: 60px;
   background-color: white;
   border-radius: 100%;
+}
+
+.one-thought {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10%
+}
+
+.back-btn, .edit-btn, .delete-thought-btn {
+  background-color: white;
+  height: 50px;
+  width: 50px;
+  font-size: 20px;
+  margin: 10px;
+  border-radius: 50%;
+}
+
+h4 {
+  text-align: center;
 }

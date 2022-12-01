@@ -77,16 +77,18 @@ function OneThought(props) {
     }, [])
 
     return (
-        <div>
+        <div className='one-thought'>
             <h2>{oneThought.thought}</h2>
-            <button onClick={goBack}>Go back</button>
-            <button onClick={()=> setEdit(true)}>Edit</button>
+            <div className='thought-btns'>
+            <button className='back-btn' onClick={goBack}>Back</button>
+            <button className='edit-btn' onClick={()=> setEdit(true)}>Edit</button>
             {edit === true ?
             <form onSubmit={editThought}>
             <textarea id='thought' value={oneThought.thought} onChange={handleChange}/> 
             <input type='submit' value='save'/>  
             </form> : null}
-            <button onClick={deleteThought}>X</button>
+            <button className='delete-thought-btn' onClick={deleteThought}>Delete</button>
+            </div>
         </div>
     )
 }
