@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import {useNavigate, useParams, Link} from 'react-router-dom'
 import ThoughtForm from './ThoughtForm'
 import OneThought from './OneThought'
-import { List, ListItem, ListItemText, Divider } from '@mui/material'
+import { List, ListItem, Divider } from '@mui/material'
 
 let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
 
@@ -103,7 +103,7 @@ function Thoughts(props)  {
 
   useEffect(() => {
       getThoughts()
-  }, [])
+  })
   
   console.log(state.thoughts.data)
     return <div className='thoughts'>

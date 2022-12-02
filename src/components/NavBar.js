@@ -9,7 +9,6 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import CreateIcon from "@mui/icons-material/Create";
 import MenuIcon from "@mui/icons-material/Menu";
 import logoImg from '../images/brainwinning.jpeg'
 function NavBar(props) {
@@ -32,7 +31,7 @@ function NavBar(props) {
       }}
     >
       <Toolbar>
-        <a href=''><img className='logo-img' src={logoImg} alt='brain-taking-notes'/></a>
+        <a href='/'><img className='logo-img' src={logoImg} alt='brain-taking-notes'/></a>
         <Typography
           noWrap
           component="a"

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+// import { Navigate, useNavigate } from "react-router-dom";
 
 function CategoryForm(props) {
-let navigate = useNavigate()
+// let navigate = useNavigate()
   const [name, setName] = useState("");
 
   let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1/categories/`;

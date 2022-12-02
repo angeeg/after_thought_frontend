@@ -10,7 +10,7 @@ function OneThought(props) {
     const [thoughts, setThoughts] = useState(props.thoughts)
     const [edit, setEdit] = useState(false)
     const navigate = useNavigate()
-    const location = useLocation()
+    // const location = useLocation()
     const {id} = useParams()
 
     const getOneThought = () => {
@@ -51,7 +51,7 @@ function OneThought(props) {
         setOneThought({[event.target.id]: event.target.value})
     }
 
-    const editThought = (selectedThought) => {
+    const editThought = () => {
         // event.preventDefault()
         fetch(baseURL + `/thoughts/${id}`, {
             method: 'PUT',
@@ -74,7 +74,7 @@ function OneThought(props) {
 
     useEffect(()=> {
         getOneThought()
-    }, [])
+    })
 
     return (
         <div className='one-thought'>
