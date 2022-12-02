@@ -103,7 +103,7 @@ function Thoughts(props)  {
 
   useEffect(() => {
       getThoughts()
-  })
+  }, [])
   
   console.log(state.thoughts.data)
     return <div className='thoughts'>

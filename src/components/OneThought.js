@@ -74,7 +74,7 @@ function OneThought(props) {
 
     useEffect(()=> {
         getOneThought()
-    })
+    }, [])
 
     return (
         <div className='one-thought'>
