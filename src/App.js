@@ -6,14 +6,11 @@ import "./App.css";
 import Home from "./components/Home";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
-// import LogoutBtn from "./components/LogoutBtn";
 import NavBar from "./components/NavBar";
 import Categories from "./components/Categories";
 import CategoryForm from "./components/CategoryForm";
-// import EditCategory from './components/EditCategory'
 import Thoughts from './components/Thoughts'
 import OneThought from './components/OneThought'
-// import Footer from './components/Footer'
 
 let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
 
