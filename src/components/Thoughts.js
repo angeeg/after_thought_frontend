@@ -53,6 +53,7 @@ function Thoughts(props)  {
       const allThoughts = [state.thoughts]
       allThoughts.push(thought)
       setState({thoughts: allThoughts})
+      getThoughts()
   }
 
   const handleChange = (event) => {
@@ -79,7 +80,7 @@ function Thoughts(props)  {
     setThoughtForm(false)
     // setBody({body:''})
     // navigate(`/thoughts/category/${id}`)
-    getThoughts()
+    
     console.log(state.thoughts)
   }
 
@@ -91,18 +92,9 @@ function Thoughts(props)  {
       setOneThought(true)
   }
 
-//   const deleteThought = () => {
-//     fetch(baseURL + `/thoughts/${id}`, {
-//       method: "DELETE",
-//       credentials: "include",
-//     }).then((res) => {
-//       const allThoughts = [state.thoughts];
-//       const findIndex = allThoughts.findIndex((thought) => thought._id === id);
-//       allThoughts.splice(findIndex, 1);
-//       console.log(allThoughts)
-//       setState({thoughts: allThoughts});
-//     });
-//   };
+  const goBack = () => {
+      props.getCategories()
+  }
 
 
   useEffect(() => {
@@ -125,8 +117,11 @@ function Thoughts(props)  {
                </div>)
             })}
         </List>
+        <div className='thought-btns'>
+        <button className='back-btn'onClick={goBack}>Back</button>
         <button className='add-btn' onClick={showAddForm}>+</button>
         {thoughtForm === true ? <ThoughtForm handleChange={handleChange} addThought={addThought}/> : null}
+        </div>
     </div>;
   
 }

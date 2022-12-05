@@ -8,9 +8,11 @@ function CategoryForm(props) {
  
   let baseURL = "";
   if (process.env.NODE_ENV === "development") {
-    baseURL = `${process.env.REACT_APP_API_URL}/categories/`;
+    baseURL = 'http://localhost:8000/after-thought/v1/categories/';
+    console.log(baseURL)
   } else {
     baseURL = process.env.REACT_APP_API_URL;
+    console.log(baseURL)
   }
 
   const handleChange = (event) => {

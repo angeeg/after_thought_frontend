@@ -41,10 +41,10 @@ export default function App() {
         }
       })
       .then((data) => {
-        console.log(data.data);
+        console.log('getCategories() data:', data.data);
         setCurrentUser(data.data[0].author.username);
         setCategories(data.data);
-        console.log("state in categories:", currentUser, categories);
+        console.log("state in getCategories():", currentUser, categories);
       });
     navigate("categories");
   };
@@ -67,7 +67,7 @@ export default function App() {
         },
       });
       console.log(response);
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log("new user registered");
         // getCategories();
         // after the user registers it will redirect them to login page
@@ -124,10 +124,12 @@ export default function App() {
 
   const addCategory = (category) => {
     const copyCategories = [categories];
+    console.log(copyCategories)
+    console.log('paramater passed in addCategory()', category)
     copyCategories.push(category);
     setCategories(copyCategories);
     navigate("categories");
-    console.log(categories);
+    console.log('end of addCategory():', categories);
   };
 
   const handleClick = () => {
@@ -209,6 +211,7 @@ export default function App() {
           path="categories"
           element={
             <Categories
+            getCategories={getCategories}
               categories={categories}
               handleClick={handleClick}
               addCategory={addCategory}
@@ -218,7 +221,7 @@ export default function App() {
           }
         />
 
-        <Route path='/thoughts/category/:id' element={<Thoughts/>}/>\
+        <Route path='/thoughts/category/:id' element={<Thoughts getCategories={getCategories}/>}/>\
 
         <Route path='/thoughts/:id' element={<OneThought/>}/>
       </Routes>
