@@ -15,7 +15,7 @@ function CategoryForm(props) {
   //   console.log(baseURL)
   // }
 
-  let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1/categories/`
+  let baseURL = `${process.env.REACT_APP_API_URL}/after-thought/v1/categories/`
 
 
   const handleChange = (event) => {

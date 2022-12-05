@@ -8,7 +8,7 @@ import {useParams, useNavigate, useLocation} from 'react-router-dom'
 //   baseURL = process.env.REACT_APP_API_URL;
 // }
 
-let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`
+let baseURL = `${process.env.REACT_APP_API_URL}/after-thought/v1`
 
 function OneThought(props) {
     const [oneThought, setOneThought] = useState({

@@ -13,7 +13,7 @@ import { List, ListItem, Divider } from '@mui/material'
 // }
 
 
-let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`
+let baseURL = `${process.env.REACT_APP_API_URL}/after-thought/v1`
 
 function Thoughts(props)  {
     const navigate = useNavigate()

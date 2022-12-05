@@ -12,7 +12,7 @@ import CategoryForm from "./components/CategoryForm";
 import Thoughts from './components/Thoughts'
 import OneThought from './components/OneThought'
 
-let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`
+let baseURL = `${process.env.REACT_APP_API_URL}/after-thought/v1`
 
 // let baseURL = ''
 // if(process.env.NODE_ENV === 'development'){
