@@ -12,7 +12,14 @@ import CategoryForm from "./components/CategoryForm";
 import Thoughts from './components/Thoughts'
 import OneThought from './components/OneThought'
 
-let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
+let baseURL = ''
+if(process.env.NODE_ENV === 'development'){
+  baseURL = 'http://localhost:8000/after-thought/v1'
+} else {
+  baseURL = process.env.REACT_APP_API_URL
+}
+
+// let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`;
 
 export default function App() {
   let navigate = useNavigate();
