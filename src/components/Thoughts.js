@@ -5,13 +5,15 @@ import ThoughtForm from './ThoughtForm'
 import OneThought from './OneThought'
 import { List, ListItem, Divider } from '@mui/material'
  
-let baseURL = ''
-if(process.env.NODE_ENV === 'development'){
-  baseURL = 'http://localhost:8000/after-thought/v1'
-} else {
-  baseURL = process.env.REACT_APP_API_URL
-}
+// let baseURL = ''
+// if(process.env.NODE_ENV === 'development'){
+//   baseURL = 'http://localhost:8000/after-thought/v1'
+// } else {
+//   baseURL = process.env.REACT_APP_API_URL
+// }
 
+
+let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1`
 
 function Thoughts(props)  {
     const navigate = useNavigate()

@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+
+let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1/categories/`
+
+
+
 function OneCategory() {
   let [category, setCategory] = useState({});
   let { id } = useParams();
 
-  let baseURL = "";
-  if (process.env.NODE_ENV === "development") {
-    baseURL = "http://localhost:8000/after-thought/v1";
-  } else {
-    baseURL = `${process.env.REACT_APP_API_URL}/categories/`;
-  }
+//   let baseURL = "";
+//   if (process.env.NODE_ENV === "development") {
+//     baseURL = "http://localhost:8000/after-thought/v1";
+//   } else {
+//     baseURL = `${process.env.REACT_APP_API_URL}/categories/`;
+//   }
+
+
 
   const getCategory = (id) => {
     fetch(baseURL + id, {

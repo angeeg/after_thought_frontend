@@ -6,14 +6,17 @@ function CategoryForm(props) {
   const [name, setName] = useState("");
 
  
-  let baseURL = "";
-  if (process.env.NODE_ENV === "development") {
-    baseURL = 'http://localhost:8000/after-thought/v1/categories/';
-    console.log(baseURL)
-  } else {
-    baseURL = process.env.REACT_APP_API_URL;
-    console.log(baseURL)
-  }
+  // let baseURL = "";
+  // if (process.env.NODE_ENV === "development") {
+  //   baseURL = 'http://localhost:8000/after-thought/v1/categories/';
+  //   console.log(baseURL)
+  // } else {
+  //   baseURL = process.env.REACT_APP_API_URL;
+  //   console.log(baseURL)
+  // }
+
+  let baseURL = `${process.env.REACT_APP_API_URL}after-thought/v1/categories/`
+
 
   const handleChange = (event) => {
     setName(event.target.value);
