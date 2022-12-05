@@ -10,7 +10,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import logoImg from '../images/brainwinning.jpeg'
+import logoImg from "../images/brainwinning.jpeg";
 function NavBar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -31,7 +31,7 @@ function NavBar(props) {
       }}
     >
       <Toolbar>
-        <a href='/'><img className='logo-img' src={logoImg} alt='brain-taking-notes'/></a>
+        <img className="logo-img" src={logoImg} alt="brain-taking-notes" />
         <Typography
           noWrap
           component="a"
@@ -40,17 +40,17 @@ function NavBar(props) {
             mr: 2,
             display: { xs: "none", md: "flex" },
             fontFamily: `'Reenie Beanie', cursive`,
-            fontSize: '22px',
+            fontSize: "22px",
             letterSpacing: ".3rem",
-            color: "inherit",
+            color: "black",
             textDecoration: "none",
-            marginLeft: '10px',
-            marginRight: '975px'
+            marginLeft: "10px",
+            marginRight: "975px",
           }}
         >
-          <Link to="">
+          
             <h1>AfterThought</h1>
-          </Link>
+          
         </Typography>
         {/* <IconButton>
           <CreateIcon />
@@ -63,9 +63,8 @@ function NavBar(props) {
           aria-haspopup="true"
           onClick={handleMenu}
           color="black"
-          
         >
-          <MenuIcon fontSize='large' />
+          <MenuIcon fontSize="large" />
         </IconButton>
 
         <Menu
@@ -84,25 +83,26 @@ function NavBar(props) {
           onClose={handleClose}
         >
           {props.isLoggedIn === false && (
-              <MenuItem onClick={handleClose}>
-                <Link to="register">
-                  <h2>Register</h2>
-                </Link>
-              </MenuItem>
-            ) }
-            {props.isLoggedIn === false && (
-              <MenuItem onClick={handleClose}>
-                <Link to="login">
-                  <h2>Login</h2>
-                </Link>
-              </MenuItem>
-            ) }
-        {props.isLoggedIn === true &&
-          <MenuItem onClick={handleClose}>
-            <Link to="categories">
-              <h2>Categories</h2>
-            </Link>
-          </MenuItem>}
+            <MenuItem onClick={handleClose}>
+              <Link to="register">
+                <h2>Register</h2>
+              </Link>
+            </MenuItem>
+          )}
+          {props.isLoggedIn === false && (
+            <MenuItem onClick={handleClose}>
+              <Link to="login">
+                <h2>Login</h2>
+              </Link>
+            </MenuItem>
+          )}
+          {props.isLoggedIn === true && (
+            <MenuItem onClick={handleClose}>
+              <Link to="categories">
+                <h2>Categories</h2>
+              </Link>
+            </MenuItem>
+          )}
         </Menu>
       </Toolbar>
     </AppBar>

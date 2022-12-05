@@ -56,6 +56,7 @@ export default function App() {
     try {
       const response = await fetch(url, {
         method: "POST",
+        credentials: 'include',
         body: JSON.stringify({
           username: e.target.username.value,
           email: e.target.email.value,
